@@ -142,6 +142,11 @@ namespace CurlThin
 #else
 #if UNITY_STANDALONE_OSX
 
+        static CurlNative()
+        {
+            InitPlugin();
+        }
+
         public const int RTLD_LAZY = 0x0001;
         public const int RTLD_NOW = 0x0002;
         public const int RTLD_GLOBAL = 0x0100;
@@ -164,7 +169,7 @@ namespace CurlThin
 
         // function delegates
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate CURLcode CURLcode_CURLglobal_Delegate(CURLglobal flags);
+        public delegate CURLcode CURLcode_CURLglobal_Delegate(CURLglobal flags = CURLglobal.DEFAULT);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void Void_Void_Delegate();

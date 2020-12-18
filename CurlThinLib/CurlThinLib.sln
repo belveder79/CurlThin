@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.808.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurlThinLib", "CurlThinLib.csproj", "{DEBCDD0B-1832-4E19-9F59-7BB81055A46D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurlThinLib-iOS", "..\CurlThinLib-iOS\CurlThinLib-iOS.csproj", "{5D7B610F-EACC-408B-9DD0-3C29690DCDC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurlThinLib-OSX", "..\CurlThinLib-OSX\CurlThinLib-OSX.csproj", "{78333584-3014-4F69-94ED-F563141DC5D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{DEBCDD0B-1832-4E19-9F59-7BB81055A46D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEBCDD0B-1832-4E19-9F59-7BB81055A46D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEBCDD0B-1832-4E19-9F59-7BB81055A46D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D7B610F-EACC-408B-9DD0-3C29690DCDC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D7B610F-EACC-408B-9DD0-3C29690DCDC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D7B610F-EACC-408B-9DD0-3C29690DCDC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D7B610F-EACC-408B-9DD0-3C29690DCDC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78333584-3014-4F69-94ED-F563141DC5D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78333584-3014-4F69-94ED-F563141DC5D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78333584-3014-4F69-94ED-F563141DC5D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78333584-3014-4F69-94ED-F563141DC5D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
