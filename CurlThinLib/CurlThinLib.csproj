@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DEBCDD0B-1832-4E19-9F59-7BB81055A46D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Vizario</RootNamespace>
+    <AssemblyName>CurlThinLib</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;UNITY;UNITY_STANDALONE_OSX</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>UNITY;UNITY_STANDALONE_OSX</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="UnityEngine">
+      <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="../CurlThin/CurlException.cs" />
+    <Compile Include="../CurlThin/CurlNative.cs" />
+    <Compile Include="../CurlThin/Logging.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\CurlThin\Helpers\DataCallbackCopier.cs">
+      <Link>Helpers\DataCallbackCopier.cs</Link>
+    </Compile>
+    <Compile Include="..\CurlThin\Enums\CURLpoll.cs">
+      <Link>Enums\CURLpoll.cs</Link>
+    </Compile>
+    <Compile Include="..\CurlThin\Enums\CURLINFO.cs">
+      <Link>Enums\CURLINFO.cs</Link>
+    </Compile>
+    <Compile Include="..\CurlThin\Enums\CURLMSG.cs">
+      <Link>Enums\CURLMSG.cs</Link>
+    </Compile>
+    <Compile Include="..\CurlThin\Enums\CURLMcode.cs">
+      <Link>Enums\CURLMcode.cs</Link>
+    </Compile>
+    <Compile Include="..\CurlThin\Enums\CURLMoption.cs">
+      <Link>Enums\CURLMoption.cs</Link>
+    </Compile>
+    <Compile Include="..\CurlThin\Enums\CURLcselect.cs">
+      <Link>Enums\CURLcselect.cs</Link>
+    </Compile>
+    <Compile Include="..\CurlThin\Enums\CURLPROTO.cs">
+      <Link>Enums\CURLPROTO.cs</Link>
+    </Compile>
+    <Compile Include="..\CurlThin\Enums\CURLglobal.cs">
+      <Link>Enums\CURLglobal.cs</Link>
+    </Compile>
+    <Compile Include="..\CurlThin\Enums\CURLoption.cs">
+      <Link>Enums\CURLoption.cs</Link>
+    </Compile>
+    <Compile Include="..\CurlThin\Enums\CURLcode.cs">
+      <Link>Enums\CURLcode.cs</Link>
+    </Compile>
+    <Compile Include="..\CurlThin\HyperPipe\SocketPollMap.cs">
+      <Link>HyperPipe\SocketPollMap.cs</Link>
+    </Compile>
+    <Compile Include="..\CurlThin\HyperPipe\IntPtrEqualityComparer.cs">
+      <Link>HyperPipe\IntPtrEqualityComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\CurlThin\HyperPipe\IRequestProvider.cs">
+      <Link>HyperPipe\IRequestProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\CurlThin\HyperPipe\HandleCompletedAction.cs">
+      <Link>HyperPipe\HandleCompletedAction.cs</Link>
+    </Compile>
+    <Compile Include="..\CurlThin\HyperPipe\IResponseConsumer.cs">
+      <Link>HyperPipe\IResponseConsumer.cs</Link>
+    </Compile>
+    <Compile Include="..\CurlThin\HyperPipe\EasyPool.cs">
+      <Link>HyperPipe\EasyPool.cs</Link>
+    </Compile>
+    <Compile Include="..\CurlThin\HyperPipe\HyperPipe.cs">
+      <Link>HyperPipe\HyperPipe.cs</Link>
+    </Compile>
+    <Compile Include="..\CurlThin\SafeHandles\SafeSlistHandle.cs">
+      <Link>SafeHandles\SafeSlistHandle.cs</Link>
+    </Compile>
+    <Compile Include="..\CurlThin\SafeHandles\SafeMultiHandle.cs">
+      <Link>SafeHandles\SafeMultiHandle.cs</Link>
+    </Compile>
+    <Compile Include="..\CurlThin\SafeHandles\SafeEasyHandle.cs">
+      <Link>SafeHandles\SafeEasyHandle.cs</Link>
+    </Compile>
+    <Compile Include="..\CurlThin\SafeHandles\SafeSocketHandle.cs">
+      <Link>SafeHandles\SafeSocketHandle.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
