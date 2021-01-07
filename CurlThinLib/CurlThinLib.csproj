@@ -105,6 +105,9 @@
     <Compile Include="..\CurlThin\SafeHandles\SafeSocketHandle.cs">
       <Link>SafeHandles\SafeSocketHandle.cs</Link>
     </Compile>
+    <Compile Include="..\CurlThin\Helpers\XferHandler.cs">
+      <Link>Helpers\XferHandler.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

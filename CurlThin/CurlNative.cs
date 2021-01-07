@@ -196,6 +196,9 @@ namespace CurlThin
         public delegate CURLcode CURLcode_SafeEasyHandle_CURLoption_DataHandler_Delegate(SafeEasyHandle handle, CURLoption option, Easy.DataHandler value);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate CURLcode CURLcode_SafeEasyHandle_CURLoption_XferHandler_Delegate(SafeEasyHandle handle, CURLoption option, Easy.XferHandler value);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate CURLcode CURLcode_SafeEasyHandle_CURLINFO_OutInt_Delegate(SafeEasyHandle handle, CURLINFO option, out int value);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -284,6 +287,7 @@ namespace CurlThin
                 Easy.SetOpt2 = GetFunctionPtr <CURLcode_SafeEasyHandle_CURLoption_IntPtr_Delegate>("curl_easy_setopt");
                 Easy.SetOpt3 = GetFunctionPtr <CURLcode_SafeEasyHandle_CURLoption_String_Delegate>("curl_easy_setopt");
                 Easy.SetOpt4 = GetFunctionPtr <CURLcode_SafeEasyHandle_CURLoption_DataHandler_Delegate>("curl_easy_setopt");
+                Easy.SetOpt5 = GetFunctionPtr <CURLcode_SafeEasyHandle_CURLoption_XferHandler_Delegate>("curl_easy_setopt");
 
                 Easy.GetInfo1 = GetFunctionPtr <CURLcode_SafeEasyHandle_CURLINFO_OutInt_Delegate>("curl_easy_getinfo");
                 Easy.GetInfo2 = GetFunctionPtr <CURLcode_SafeEasyHandle_CURLINFO_OutIntPtr_Delegate>("curl_easy_getinfo");
@@ -337,6 +341,7 @@ namespace CurlThin
                 Easy.SetOpt2 = null;
                 Easy.SetOpt3 = null;
                 Easy.SetOpt4 = null;
+                Easy.SetOpt5 = null;
 
                 Easy.GetInfo1 = null;
                 Easy.GetInfo2 = null;
@@ -387,6 +392,7 @@ namespace CurlThin
         public static class Easy
         {
             public delegate UIntPtr DataHandler(IntPtr data, UIntPtr size, UIntPtr nmemb, IntPtr userdata);
+            public delegate UIntPtr XferHandler(IntPtr clientp, Int64 dltotal, Int64 dlnow, Int64 ultotal, Int64 ulnow);
 
             public static SafeEasyHandle_Void_Delegate Init = null;
             public static CURLcode_SafeEasyHandle_Delegate Perform = null;
@@ -413,6 +419,11 @@ namespace CurlThin
             public static CURLcode SetOpt(SafeEasyHandle handle, CURLoption option, DataHandler value)
             {
                 return SetOpt4(handle, option, value);
+            }
+            public static CURLcode_SafeEasyHandle_CURLoption_XferHandler_Delegate SetOpt5 = null;
+            public static CURLcode SetOpt(SafeEasyHandle handle, CURLoption option, XferHandler value)
+            {
+                return SetOpt5(handle, option, value);
             }
 
             public static CURLcode_SafeEasyHandle_CURLINFO_OutInt_Delegate GetInfo1 = null;
@@ -514,6 +525,7 @@ namespace CurlThin
         public static class Easy
         {
             public delegate UIntPtr DataHandler(IntPtr data, UIntPtr size, UIntPtr nmemb, IntPtr userdata);
+            public delegate UIntPtr XferHandler(IntPtr clientp, Int64 dltotal, Int64 dlnow, Int64 ultotal, Int64 ulnow);
 
             [DllImport(LIBCURL, EntryPoint = "curl_easy_init")]
             public static extern SafeEasyHandle Init();
@@ -538,6 +550,9 @@ namespace CurlThin
 
             [DllImport(LIBCURL, EntryPoint = "curl_easy_setopt")]
             public static extern CURLcode SetOpt(SafeEasyHandle handle, CURLoption option, DataHandler value);
+
+            [DllImport(LIBCURL, EntryPoint = "curl_easy_setopt")]
+            public static extern CURLcode SetOpt(SafeEasyHandle handle, CURLoption option, XferHandler value);
 
             [DllImport(LIBCURL, EntryPoint = "curl_easy_getinfo")]
             public static extern CURLcode GetInfo(SafeEasyHandle handle, CURLINFO option, out int value);
