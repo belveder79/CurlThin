@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
-#if !UNITY
+//#if !UNITY
 using System.Collections.Immutable;
-#else
-using System.Collections.Generic;
-#endif
+//#else
+//using System.Collections.Generic;
+//#endif
 using CurlThin.SafeHandles;
 
 namespace CurlThin.HyperPipe
@@ -13,16 +13,16 @@ namespace CurlThin.HyperPipe
     {
         private readonly ConcurrentDictionary<SafeEasyHandle, T> _busy;
         private readonly ConcurrentBag<SafeEasyHandle> _free;
-#if !UNITY
+//#if !UNITY
         private readonly ImmutableDictionary<IntPtr, SafeEasyHandle> _pool;
-#else
-        private readonly Dictionary<IntPtr, SafeEasyHandle> _pool;
-#endif
+//#else
+//        private readonly Dictionary<IntPtr, SafeEasyHandle> _pool;
+//#endif
 
         public EasyPool(int size)
         {
             Size = size;
-#if !UNITY
+//#if !UNITY
             var poolBuilder = ImmutableDictionary.CreateBuilder<IntPtr, SafeEasyHandle>(
                 new IntPtrEqualityComparer());
 
@@ -35,7 +35,7 @@ namespace CurlThin.HyperPipe
             _pool = poolBuilder.ToImmutable();
             _free = new ConcurrentBag<SafeEasyHandle>(_pool.Values);
             _busy = new ConcurrentDictionary<SafeEasyHandle, T>();
-#else
+/*#else
             _pool = new Dictionary<IntPtr, SafeEasyHandle>(new IntPtrEqualityComparer());
             for (var i = 0; i < size; i++)
             {
@@ -44,7 +44,7 @@ namespace CurlThin.HyperPipe
             }
             _free = new ConcurrentBag<SafeEasyHandle>(_pool.Values);
             _busy = new ConcurrentDictionary<SafeEasyHandle, T>();
-#endif
+#endif*/
         }
 
         /// <summary>

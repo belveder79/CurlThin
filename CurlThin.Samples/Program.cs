@@ -10,7 +10,7 @@ namespace CurlThin.Samples
     {
         private static void Main(string[] args)
         {
-            CurlResources.Init();
+            //CurlResources.Init();
 
             var samples = FindSamples<ISample>();
 

@@ -1,27 +1,27 @@
 ﻿using System;
 using System.Collections.Concurrent;
-#if !UNITY
+//#if !UNITY
 using NetUV.Core.Handles;
-#endif
+//#endif
 namespace CurlThin.HyperPipe
 {
     internal class SocketPollMap : IDisposable
     {
-#if !UNITY
+//if !UNITY
         private readonly ConcurrentDictionary<IntPtr, Poll> _sockets
             = new ConcurrentDictionary<IntPtr, Poll>(new IntPtrEqualityComparer());
-#endif
+//#endif
         public void Dispose()
         {
-#if !UNITY
+//#if !UNITY
             foreach (var poll in _sockets.Values)
             {
                 poll.Stop();
                 poll.Dispose();
             }
-#endif
+//#endif
         }
-#if !UNITY
+//#if !UNITY
         public Poll GetOrCreatePoll(IntPtr sockfd, Loop loop)
         {
             if (!_sockets.TryGetValue(sockfd, out Poll poll))
@@ -41,6 +41,6 @@ namespace CurlThin.HyperPipe
                 poll.Dispose();
             }
         }
-#endif
+//#endif
     }
 }

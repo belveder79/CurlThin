@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 using CurlThin.Enums;
 using CurlThin.SafeHandles;
 #if !UNITY
-using Microsoft.Extensions.Logging;
+  using Microsoft.Extensions.Logging;
+#endif
 using NetUV.Core.Handles;
 using Timer = NetUV.Core.Handles.Timer;
-#endif
-
 
 namespace CurlThin.HyperPipe
 {
@@ -20,7 +19,7 @@ namespace CurlThin.HyperPipe
         private readonly Loop _loop;
 #else
         private static readonly Logging.ILogger Logger = Logging.GetCurrentClassLogger();
-
+        private readonly Loop _loop;
 #endif
         private readonly EasyPool<T> _easyPool;
 
@@ -48,12 +47,12 @@ namespace CurlThin.HyperPipe
             }
 
             _socketMap = new SocketPollMap();
-#if !UNITY
+//#if !UNITY
             _loop = new Loop();
             _timeout = _loop.CreateTimer();
-#else
-
-#endif
+//#else
+//
+//#endif
             // Explicitly define callback functions to keep them from being GCed.
             _socketCallback = HandleSocket;
             _timerCallback = StartTimeout;
@@ -67,11 +66,11 @@ namespace CurlThin.HyperPipe
         public void Dispose()
         {
             _multiHandle.Dispose();
-#if !UNITY
+//#if !UNITY
             _loop.Dispose();
-#else
-
-#endif
+//#else
+//
+//#endif
             _timeout.Dispose();
             _socketMap.Dispose();
             _oneRequestPullAtOnce.Dispose();
@@ -87,11 +86,11 @@ namespace CurlThin.HyperPipe
             CurlNative.Multi.SocketAction(_multiHandle, SafeSocketHandle.Invalid, 0, out int _);
 
             Logger.LogDebug("Starting libuv loop...");
-#if !UNITY
+//#if !UNITY
             _loop.RunDefault();
-#else
-
-#endif
+//#else
+//
+//#endif
         }
 
         /// <summary>
@@ -113,7 +112,7 @@ namespace CurlThin.HyperPipe
                 case CURLpoll.IN:
                 case CURLpoll.OUT:
                 case CURLpoll.INOUT:
-#if !UNITY
+//#if !UNITY
                     PollMask events = 0;
 
                     if (what != CURLpoll.IN)
@@ -149,9 +148,9 @@ namespace CurlThin.HyperPipe
                     Logger.LogTrace($"Removing poll of socket {sockfd}.");
                     _socketMap.RemovePoll(sockfd);
                     break;
-#else
-                    break;
-#endif
+//#else
+//                    break;
+//#endif
                 default:
                     throw new ArgumentOutOfRangeException(nameof(what));
             }
@@ -171,11 +170,11 @@ namespace CurlThin.HyperPipe
             {
                 Logger.LogTrace($"Called {nameof(CURLMoption.TIMERFUNCTION)} with timeout set to {timeoutMs}. "
                              + "Deleting our timer.");
-#if !UNITY
+//#if !UNITY
                 _timeout.Stop();
-#else
-
-#endif
+//#else
+//
+//#endif
             }
             else if (timeoutMs == 0)
             {
@@ -188,15 +187,15 @@ namespace CurlThin.HyperPipe
             else
             {
                 Logger.LogTrace($"Called {nameof(CURLMoption.TIMERFUNCTION)} with timeout set to {timeoutMs} ms.");
-#if !UNITY
+//#if !UNITY
                 _timeout.Start(t =>
                 {
                     CurlNative.Multi.SocketAction(_multiHandle, SafeSocketHandle.Invalid, 0, out int _);
                     CheckMultiInfo();
                 }, timeoutMs, 0);
-#else
-
-#endif
+//#else
+//
+//#endif
             }
             return 0;
         }
@@ -246,7 +245,7 @@ namespace CurlThin.HyperPipe
             {
                 return; // All handles are in use.
             }
-#if !UNITY
+//#if !UNITY
             var asyncHandle = _loop.CreateAsync(async =>
             {
                 var result = ((bool HasNext, T Next)) async.UserToken;
@@ -269,9 +268,9 @@ namespace CurlThin.HyperPipe
                 _oneRequestPullAtOnce.Release();
                 asyncHandle.Send();
             });
-#else
-
-#endif
+//#else
+//
+//#endif
         }
     }
 }

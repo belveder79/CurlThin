@@ -30,6 +30,7 @@ namespace CurlThin
         public static class Easy
         {
             public delegate UIntPtr DataHandler(IntPtr data, UIntPtr size, UIntPtr nmemb, IntPtr userdata);
+            public delegate UIntPtr XferHandler(IntPtr clientp, Int64 dltotal, Int64 dlnow, Int64 ultotal, Int64 ulnow);
 
             [DllImport(LIBCURL, EntryPoint = "curl_easy_init")]
             public static extern SafeEasyHandle Init();
@@ -54,6 +55,9 @@ namespace CurlThin
 
             [DllImport(LIBCURL, EntryPoint = "curl_easy_setopt")]
             public static extern CURLcode SetOpt(SafeEasyHandle handle, CURLoption option, DataHandler value);
+
+            [DllImport(LIBCURL, EntryPoint = "curl_easy_setopt")]
+            public static extern CURLcode SetOpt(SafeEasyHandle handle, CURLoption option, XferHandler value);
 
             [DllImport(LIBCURL, EntryPoint = "curl_easy_getinfo")]
             public static extern CURLcode GetInfo(SafeEasyHandle handle, CURLINFO option, out int value);
@@ -266,10 +270,14 @@ namespace CurlThin
             StringBuilder dllname = new StringBuilder();
             string extension = "dylib";
             string prefix = "lib";
-            FileInfo[] fileList = new DirectoryInfo(Application.dataPath).GetFiles(prefix + "curl." + extension, SearchOption.AllDirectories);
-            if (fileList.Length > 0)
-                dllname.Append(fileList[0].DirectoryName + "/" + prefix + "curl." + extension);
-
+            
+                        FileInfo[] fileList = new DirectoryInfo(Application.dataPath).GetFiles(prefix + "curl." + extension, SearchOption.AllDirectories);
+                        if (fileList.Length > 0)
+                            dllname.Append(fileList[0].DirectoryName + "/" + prefix + "curl." + extension);
+            
+            // TESTING PURPOSES ONLY!
+            //dllname.Append("libcurl.dylib");
+            
             handle = dlopen(dllname.ToString(), RTLD_LAZY);
             bool initOK = false;
             if (handle != IntPtr.Zero)
