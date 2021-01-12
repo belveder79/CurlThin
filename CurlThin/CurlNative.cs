@@ -546,32 +546,63 @@ namespace CurlThin
 
             [DllImport(LIBCURL, EntryPoint = "curl_easy_reset")]
             public static extern void Reset(SafeEasyHandle handle);
-
+#if UNITY_IOS
+            [DllImport(LIBCURL, EntryPoint = "curl_easy_setoptInt")]
+#else
             [DllImport(LIBCURL, EntryPoint = "curl_easy_setopt")]
+#endif
             public static extern CURLcode SetOpt(SafeEasyHandle handle, CURLoption option, int value);
-
+#if UNITY_IOS
+            [DllImport(LIBCURL, EntryPoint = "curl_easy_setoptIntPtr")]
+#else
             [DllImport(LIBCURL, EntryPoint = "curl_easy_setopt")]
+#endif
             public static extern CURLcode SetOpt(SafeEasyHandle handle, CURLoption option, IntPtr value);
-
-            [DllImport(LIBCURL, EntryPoint = "curl_easy_setopt", CharSet = CharSet.Ansi)]
+#if UNITY_IOS
+            [DllImport(LIBCURL, EntryPoint = "curl_easy_setoptString", CharSet = CharSet.Ansi)]
+#else
+            [DllImport(LIBCURL, EntryPoint = "curl_easy_setopt")]
+#endif
             public static extern CURLcode SetOpt(SafeEasyHandle handle, CURLoption option, string value);
-
+#if UNITY_IOS
+            [DllImport(LIBCURL, EntryPoint = "curl_easy_setoptDataHandler")]
+#else
             [DllImport(LIBCURL, EntryPoint = "curl_easy_setopt")]
+#endif
             public static extern CURLcode SetOpt(SafeEasyHandle handle, CURLoption option, DataHandler value);
-
+#if UNITY_IOS
+            [DllImport(LIBCURL, EntryPoint = "curl_easy_setoptXferHandler")]
+#else
             [DllImport(LIBCURL, EntryPoint = "curl_easy_setopt")]
+#endif
             public static extern CURLcode SetOpt(SafeEasyHandle handle, CURLoption option, XferHandler value);
 
+#if UNITY_IOS
+            [DllImport(LIBCURL, EntryPoint = "curl_easy_getinfoInt")]
+#else
             [DllImport(LIBCURL, EntryPoint = "curl_easy_getinfo")]
+#endif
             public static extern CURLcode GetInfo(SafeEasyHandle handle, CURLINFO option, out int value);
 
+#if UNITY_IOS
+            [DllImport(LIBCURL, EntryPoint = "curl_easy_getinfoOutIntPtr")]
+#else
             [DllImport(LIBCURL, EntryPoint = "curl_easy_getinfo")]
+#endif
             public static extern CURLcode GetInfo(SafeEasyHandle handle, CURLINFO option, out IntPtr value);
 
+#if UNITY_IOS
+            [DllImport(LIBCURL, EntryPoint = "curl_easy_getinfoDouble")]
+#else
             [DllImport(LIBCURL, EntryPoint = "curl_easy_getinfo")]
+#endif
             public static extern CURLcode GetInfo(SafeEasyHandle handle, CURLINFO option, out double value);
 
+#if UNITY_IOS
+            [DllImport(LIBCURL, EntryPoint = "curl_easy_getinfoIntPtr")]
+#else
             [DllImport(LIBCURL, EntryPoint = "curl_easy_getinfo", CharSet = CharSet.Ansi)]
+#endif
             public static extern CURLcode GetInfo(SafeEasyHandle handle, CURLINFO option, IntPtr value);
 
             [DllImport(LIBCURL, EntryPoint = "curl_easy_strerror")]
@@ -618,16 +649,16 @@ namespace CurlThin
                 }
             }
 
-        #region curl_multi_setopt for CURLMOPT_TIMERFUNCTION
+            #region curl_multi_setopt for CURLMOPT_TIMERFUNCTION
 
             public delegate int TimerCallback(IntPtr multiHandle, int timeoutMs, IntPtr userp);
 
             [DllImport(LIBCURL, EntryPoint = "curl_multi_setopt")]
             public static extern CURLMcode SetOpt(SafeMultiHandle multiHandle, CURLMoption option, TimerCallback value);
 
-        #endregion
+            #endregion
 
-        #region curl_multi_setopt for CURLMOPT_SOCKETFUNCTION
+            #region curl_multi_setopt for CURLMOPT_SOCKETFUNCTION
 
             public delegate int SocketCallback(IntPtr easy, IntPtr s, CURLpoll what, IntPtr userp, IntPtr socketp);
 
@@ -635,7 +666,7 @@ namespace CurlThin
             public static extern CURLMcode SetOpt(SafeMultiHandle multiHandle, CURLMoption option,
                 SocketCallback value);
 
-        #endregion
+            #endregion
         }
 
         public static class Slist
@@ -648,5 +679,5 @@ namespace CurlThin
         }
 #endif  // UNITY_STANDALONE_OSX
 #endif // !UNITY
+        }
     }
-}

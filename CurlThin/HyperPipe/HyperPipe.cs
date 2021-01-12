@@ -54,6 +54,7 @@ namespace CurlThin.HyperPipe
 //
 //#endif
             // Explicitly define callback functions to keep them from being GCed.
+            // TODO (CLEMENS): FOR IL2CPP THIS NEEDS TO BE REDEFINED AS STATUC METHODS!!!
             _socketCallback = HandleSocket;
             _timerCallback = StartTimeout;
 
